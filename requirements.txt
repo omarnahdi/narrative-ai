@@ -1,0 +1,16 @@
+agentql==1.13.0
+agno==1.7.5
+beautifulsoup4==4.13.4
+brave-search
+crawl4ai==0.7.1
+google-genai==1.26.0
+playwright==1.54.0
+pydantic==2.11.7
+pydantic-core==2.33.2
+pydantic-settings==2.10.1
+sqlalchemy==2.0.41
+httpx
+streamlit>=1.47.1
+jira>=3.10.5
+fastapi>=0.116.1
+uvicorn>=0.35.0
