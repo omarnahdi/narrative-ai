@@ -36,6 +36,10 @@ cd narrative-ai
 2. Install dependencies
 ```bash
 pip install -r requirements.txt
+
+# Install and setup Playwright for web scraping
+pip install playwright
+playwright install
 ```
 
 3. Setup environment variables
@@ -47,6 +51,8 @@ copy .example.env .env
 GOOGLE_API_KEY=your_gemini_api_key
 BRAVE_API_KEY=your_brave_search_key
 ```
+
+> **Note**: Playwright is required for web scraping functionality. Make sure to run both the install commands to set up the browser automation
 
 ## Project Structure
 ```
