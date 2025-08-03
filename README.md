@@ -123,4 +123,4 @@ BRAVE_API_KEY =        # Your Brave Search API key
 Feel free to submit issues and pull requests.
 
 ## License
-MIT License - See LICENSE file
+Apache License - See LICENSE file
