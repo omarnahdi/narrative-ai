@@ -29,7 +29,7 @@ An intelligent LinkedIn post generation system powered by AI agents, built to cr
 ## Installation
 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/omarnahdi/narrative-ai
 cd narrative-ai
 ```
 
