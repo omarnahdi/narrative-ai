@@ -1,0 +1,24 @@
+---
+name: Release
+
+on:
+  push:
+    branches:
+      - production
+    paths:
+      - "!**"
+      - CHANGELOG.md
+      - pyproject.toml
+
+jobs:
+  test:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Release
+        uses: ./.github/actions/release
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          build_artifacts: true
