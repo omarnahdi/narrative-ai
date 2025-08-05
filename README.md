@@ -4,13 +4,18 @@
 An intelligent LinkedIn post generation system powered by AI agents, built to create engaging, research-backed professional content.
 
 ## Table of Contents
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Technologies Used](#technologies-used)
+- [Narrative AI: LinkedIn Post Generator with AI Agents 🤖](#narrative-ai-linkedin-post-generator-with-ai-agents-)
+  - [Overview](#overview)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Project Structure](#project-structure)
+  - [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Technologies Used](#technologies-used)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Features
 - 🎯 Research-backed content generation
@@ -21,20 +26,41 @@ An intelligent LinkedIn post generation system powered by AI agents, built to cr
 - 🎨 Professional post formatting
 
 ## Requirements
+
 - Python 3.x
 - Google AI API key (Gemini)
 - Brave Search API key
-- Required Python packages (see `requirements.txt`)
+- Required Python packages (defined in `pyproject.toml`)
 
 ## Installation
+
 1. Clone the repository
+
 ```bash
 git clone https://github.com/omarnahdi/narrative-ai
 cd narrative-ai
 ```
 
 2. Install dependencies
+
+**Recommended Method (using uv)**:
+
 ```bash
+# Install uv if you haven't already
+pip install uv
+
+# Install dependencies using pyproject.toml (faster and more reliable)
+uv sync
+
+# Install and setup Playwright for web scraping
+uv pip install playwright
+playwright install
+```
+
+**Alternative Method (using pip)**:
+
+```bash
+# Install dependencies using requirements.txt
 pip install -r requirements.txt
 
 # Install and setup Playwright for web scraping
@@ -55,13 +81,14 @@ BRAVE_API_KEY=your_brave_search_key
 > **Note**: Playwright is required for web scraping functionality. Make sure to run both the install commands to set up the browser automation
 
 ## Project Structure
-```
+```plaintext
 narrative-ai/
 ├── post_gen_app.py      # Main Streamlit application
 ├── post_gen_agent.py    # Agent workflow implementation
 ├── structured_models.py  # Pydantic data models
 ├── instructions.py      # Agent instructions
-├── requirements.txt     # Project dependencies
+├── pyproject.toml       # Project dependencies and configuration
+├── uv.lock             # Lock file for dependencies
 └── .env                # Environment variables
 ```
 
