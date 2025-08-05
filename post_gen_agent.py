@@ -62,7 +62,7 @@ prompt_agent = Agent(
 )
 
 gemini_agent = Agent(
-    model=Gemini(id='gemini-2.5-pro',safety_settings=safety_settings,temperature=0.9),
+    model=Gemini(id='gemini-2.5-pro',safety_settings=safety_settings,temperature=0.6),
     add_datetime_to_instructions=True,
     memory=memory,
     enable_agentic_memory=True,
