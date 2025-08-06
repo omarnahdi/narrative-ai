@@ -53,7 +53,7 @@ pip install uv
 uv sync
 
 # Install and setup Playwright for web scraping
-uv pip install playwright
+uv add playwright
 playwright install
 ```
 
