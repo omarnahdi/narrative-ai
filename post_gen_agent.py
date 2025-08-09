@@ -3,7 +3,8 @@ from agno.models.google import Gemini
 from agno.agent import Agent
 from dotenv import load_dotenv
 from instructions import agent_instructions, goal, prompt_tuner_goal, prompt_tuner_instructions
-from agno.tools.bravesearch import BraveSearchTools
+# from agno.tools.bravesearch import BraveSearchTools
+from fix_brave_tool import BraveSearchTools
 from agno.storage.sqlite import SqliteStorage
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.memory import Memory
