@@ -49,9 +49,9 @@ class BraveSearchTools(Toolkit):
     def brave_search(
     self,
     query: str,
-    max_results: int = 5,           # ✅ Changed: now int with default 5
-    country: str = "US",            # ✅ Changed: add default
-    search_lang: str = "en",        # ✅ Changed: add default
+    max_results: Optional[int] = 5,           # ✅ Changed: now int with default 5
+    country: Optional[str] = "US",            # ✅ Changed: add default
+    search_lang: Optional[str] = "en",        # ✅ Changed: add default
         ) -> str:
         """
         Search Brave for the specified query and return the results.

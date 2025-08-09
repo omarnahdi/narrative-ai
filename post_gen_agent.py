@@ -70,8 +70,9 @@ gemini_agent = Agent(
     instructions=agent_instructions,
     # goal=goal,
     tools=[
-        BraveSearchTools(cache_results=True),
-        JinaReaderTools() # Can use any one of the scrapin, by default uses Jina Reader API
+        JinaReaderTools(), # Can use any one of the scrapin, by default uses Jina Reader API
+        BraveSearchTools(),
+        
         # Crawl4aiTools(max_length=None,include_tools=['crawl']),
         # AgentQLTools(include_tools=['scrape_website']),
     ],
@@ -85,7 +86,7 @@ gemini_agent = Agent(
     
     # response_model=LinkedInPostResponseV2,
     # use_json_mode=True,
-    tool_call_limit=5
+    tool_call_limit=12,
 )
 
 #
