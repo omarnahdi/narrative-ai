@@ -2,7 +2,7 @@ import json
 from agno.models.google import Gemini
 from agno.agent import Agent
 from dotenv import load_dotenv
-from instructions import agent_instructions, goal, prompt_tuner_goal, prompt_tuner_instructions
+from instructions import post_gen_instructions, prompt_tuner_goal, prompt_tuner_instructions
 # from agno.tools.bravesearch import BraveSearchTools
 from fix_brave_tool import BraveSearchTools
 from agno.storage.sqlite import SqliteStorage
@@ -67,7 +67,7 @@ gemini_agent = Agent(
     add_datetime_to_instructions=True,
     memory=memory,
     enable_agentic_memory=True,
-    instructions=agent_instructions,
+    instructions=post_gen_instructions,
     # goal=goal,
     tools=[
         JinaReaderTools(), # Can use any one of the scrapin, by default uses Jina Reader API

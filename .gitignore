@@ -23,6 +23,7 @@ Thumbs.db
 *.egg-info/
 dist/
 build/
-
+agent-ui
 # Logs
 *.log
+agent_team_groq.py
