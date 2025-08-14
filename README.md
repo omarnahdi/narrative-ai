@@ -90,7 +90,7 @@ pip install agno 'fastapi[standard]' sqlalchemy
 # Create the Agent UI in a separate directory
 npx create-agent-ui@latest
 ```
-**NOTE:** for more info checkout [Ageno Agent UI](https://docs.agno.com/agent-ui/introduction#get-started-with-agent-ui)
+**NOTE:** for more info checkout [Agno Agent UI](https://docs.agno.com/agent-ui/introduction#get-started-with-agent-ui)
 
 
 5. **Setup environment variables**
