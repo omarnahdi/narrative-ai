@@ -17,6 +17,7 @@ from fix_jina_tool import JinaReaderTools
 from structured_models import PromptTunerResponse, ResearchFindings
 from google.genai import types
 from agno.team import Team
+from agno.media import Image
 
 
 
@@ -52,7 +53,7 @@ memory = Memory(
 prompt_agent = Agent(
     name="Prompt Tuner Agent",
     role="Transforms the user's prompt into rich and well detailed instructions, with proper formatting",
-    model=Gemini(id='gemini-2.5-flash',safety_settings=safety_settings,temperature=0.7),
+    model=Gemini(id='gemini-2.5-flash',safety_settings=safety_settings,temperature=0.6),
     add_datetime_to_instructions=True,
 
     enable_agentic_memory=True,
@@ -71,15 +72,15 @@ prompt_agent = Agent(
 researcher_agent = Agent(
     name="Researcher Agent",
     role="Researches the web for context rich content using search and scraping tools ",
-    model=Gemini(id='gemini-2.5-flash',safety_settings=safety_settings,temperature=0.6),
+    model=Gemini(id='gemini-2.5-flash',safety_settings=safety_settings,temperature=0.5),
     add_datetime_to_instructions=True,
    
     enable_agentic_memory=True,
     instructions=research_agent_instructions,
     # goal=goal,
     tools=[
-        JinaReaderTools(include_tools=['robust_read_url']), # Can use any one of the scrapin, by default uses Jina Reader API
-        BraveSearchTools(fixed_max_results=5,),
+        JinaReaderTools(include_tools=['robust_read_url'],cache_results=True), # Can use any one of the scrapin, by default uses Jina Reader API
+        BraveSearchTools(fixed_max_results=5,cache_results=True),
     ],
     add_history_to_messages=True,
     cache_session=True,
@@ -87,7 +88,7 @@ researcher_agent = Agent(
     show_tool_calls=True,
     markdown=True,
     response_model=ResearchFindings,
-    parser_model=Gemini(id='gemini-2.5-flash-lite'),
+    parser_model=Gemini(id='gemini-2.5-flash'),
     tool_call_limit=8,
 )
 
@@ -103,7 +104,6 @@ gemini_agent = Agent(
     add_history_to_messages=True,
     cache_session=True,
     num_history_runs=8,
-   
     show_tool_calls=True,
     
     markdown=True,
@@ -130,7 +130,9 @@ PostGenTeam = Team(
     cache_session=True,
     memory=memory,
     storage=storage,
-    team_id="Narrative_AI_Team"
+    team_id="Narrative_AI_Team",
+    # stream=False,
+    
 )
 
 if __name__=="__main__":

@@ -10,11 +10,11 @@ __pycache__/
 venv/
 env/
 tmp
-
+imgs/
 # IDE
 .vscode/
 .idea/
-
+img_path_test.py
 # OS
 .DS_Store
 Thumbs.db
@@ -27,3 +27,4 @@ agent-ui
 # Logs
 *.log
 agent_team_groq.py
+hello.py
