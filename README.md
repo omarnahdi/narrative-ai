@@ -69,9 +69,6 @@ pip install uv
 # Install dependencies using pyproject.toml (faster and more reliable)
 uv sync
 
-# Install and setup Playwright for web scraping
-uv add playwright
-playwright install
 ```
 
 **Alternative Method (using pip)**:
