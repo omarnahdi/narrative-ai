@@ -80,22 +80,9 @@ playwright install
 # Install dependencies using requirements.txt
 pip install -r requirements.txt
 
-# Install and setup Playwright for web scraping
-pip install playwright
-playwright install
 ```
 
-3. **Install Agno and additional dependencies**:
-
-```bash
-# Using uv (recommended)
-uv add agno fastapi sqlalchemy
-
-# Or using pip
-pip install agno 'fastapi[standard]' sqlalchemy
-```
-
-4. **Create the Agent UI**:
+3. **Create the Agent UI**:
 
 > **⚠️ IMPORTANT**: You MUST use the latest Agent UI for compatibility. The project will NOT work with older versions of the Agent UI.
 
