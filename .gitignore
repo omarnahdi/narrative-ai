@@ -28,3 +28,4 @@ agent-ui
 *.log
 agent_team_groq.py
 hello.py
+team_db/

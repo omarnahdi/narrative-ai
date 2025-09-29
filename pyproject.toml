@@ -1,28 +1,25 @@
 [project]
 name = "narrative-ai"
-version = "0.8.9"
-description = "Add your description here"
+version = "0.9.0"
+authors = [{name = "Omar Nahdi", email = "omarnahdi.ai@gmail.com"}]
+maintainers = [{name = "Omar Nahdi", email = "omarnahdi.ai@gmail.com"}]
+description = "An intelligent LinkedIn post generator powered by AI agents. This system uses Gemini, Brave Search, and web scraping to create engaging, research-backed professional content tailored to your audience and tone."
+license = "PolyForm-Noncommercial-1.0.0"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "agentql==1.13.0",
-    "agno==1.7.10",
+    "agno==2.0.11",
     "beautifulsoup4==4.13.4",
-    "brave-search",
-    "crawl4ai==0.7.0",
+    "brave-search @ git+https://github.com/omarnahdi/brave-api-fix.git",
+    "ddgs>=9.6.0",
     "fastapi>=0.116.1",
     "google-genai==1.26.0",
-    "groq>=0.31.0",
     "httpx==0.28.1",
     "jira>=3.10.5",
-    "playwright==1.54.0",
     "pydantic==2.11.7",
     "pydantic-core==2.33.2",
     "pydantic-settings==2.10.1",
     "sqlalchemy==2.0.41",
-    "streamlit>=1.47.1",
     "uvicorn>=0.35.0",
 ]
 
-[tool.uv.sources]
-brave-search = { path = "brave-api" }

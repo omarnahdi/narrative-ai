@@ -1,10 +1,21 @@
 # Narrative AI: LinkedIn Post Generator with AI Agents 🤖
 
+## What's New in v0.9.0 🎉
+
+**Major Updates:**
+- 🚀 **Agno v2.0.11 Integration**: Complete migration from agno<2.0.0 to agno v2.0.11, leveraging the power of AgentOS with extended support. This update fundamentally changes how agents are defined and used in the project.
+- 🔧 **Fixed Brave Search API**: Resolved issues with the Brave Search integration for more reliable web research.
+- 🧹 **Dependency Cleanup**: Removed unwanted dependencies for a leaner installation (use `uv sync` to reflect changes).
+- 📜 **Commercial License Added**: Introduced commercial licensing for organizational/commercial use while keeping the project completely free for individuals' personal and non-commercial use cases.
+- ⚡ **NEW Custom Async Jina Scraper**: Implemented a more robust and faster async Jina scraper, replacing the old synchronous tool for improved performance.
+- 📝 **Enhanced System Standards**: Updated context and instructions standards for better agent performance.
+
 ## Overview
 An intelligent LinkedIn post generation system powered by AI agents, built to create engaging, research-backed professional content with a beautiful Agent UI interface.
 
 ## Table of Contents
 - [Narrative AI: LinkedIn Post Generator with AI Agents 🤖](#narrative-ai-linkedin-post-generator-with-ai-agents-)
+  - [What's New in v0.9.0 🎉](#whats-new-in-v090-)
   - [Overview](#overview)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
@@ -86,12 +97,35 @@ pip install agno 'fastapi[standard]' sqlalchemy
 
 4. **Create the Agent UI**:
 
+> **⚠️ IMPORTANT**: You MUST use the latest Agent UI for compatibility. The project will NOT work with older versions of the Agent UI.
+
+**Automatic Installation (Recommended)**:
+
 ```bash
-# Create the Agent UI in a separate directory
 npx create-agent-ui@latest
 ```
-**NOTE:** for more info checkout [Agno Agent UI](https://docs.agno.com/agent-ui/introduction#get-started-with-agent-ui)
 
+**Manual Installation**:
+
+1. Clone the repository:
+```bash
+git clone https://github.com/agno-agi/agent-ui.git
+cd agent-ui
+```
+
+2. Install dependencies:
+```bash
+pnpm install
+```
+
+3. Start the development server:
+```bash
+pnpm dev
+```
+
+4. Open http://localhost:3000 with your browser to see the result.
+
+**NOTE:** For more info checkout [Agno Agent UI](https://docs.agno.com/agent-ui/introduction#get-started-with-agent-ui)
 
 5. **Setup environment variables**
 ```bash
@@ -127,30 +161,30 @@ npm run dev
 ```plaintext
 narrative-ai/
 ├── .venv/                  # Virtual environment
-├── agent-ui/               # Agno Agent UI (locally generated, not in repo)
 ├── brave-api/              # Brave search API integration
-├── tmp/                    # Agent storage directory (created after first run)
-│   ├── team_storage.db     # Team agent storage database
-│   └── team_memories.db    # Team agent memories database
+├── depreciated/            # Deprecated scripts
+│   ├── post_gen_agent.py
+│   ├── post_gen_app.py
+│   └── post_gen_team_app.py
+├── team_db/                # Database for agent teams
+├── tmp/                    # Temporary file directory
 ├── .env                    # Environment variables
 ├── .example.env            # Environment variables template
 ├── .gitignore              # Git ignore rules
 ├── .python-version         # Python version specification
 ├── agent_team.py           # Main team agent implementation
-├── fix_brave_tool.py       # Brave tool fixes/utilities
-├── fix_jina_tool.py        # Jina tool fixes/utilities
+├── fix_brave_tool.py       # Utility for Brave tool
+├── fix_jina_tool.py        # Utility for Jina tool
+├── hello.py                # Test/Example script
+├── img_path_test.py        # Script for testing image paths
 ├── instructions.py         # Agent instructions
 ├── LICENSE                 # License file
-├── playground.py           # Agno playground server with agent configuration
-├── post_gen_agent.py       # Individual post generation agent
-├── post_gen_app.py         # Deprecated Streamlit application
-├── post_gen_team_app.py    # Team-based post generation app
-├── pyproject.toml          # Project dependencies and configuration
-├── README.md               # This file
-├── requirements.txt        # Python dependencies (alternative to pyproject.toml)
+├── narrativeai_run.py      # Main application runner
+├── pyproject.toml          # Project configuration file
+├── README.md               # Project README file
+├── requirements.txt        # Python dependencies
 ├── structured_models.py    # Pydantic data models
-├── team_instructions.py    # Team-specific instructions
-└── uv.lock                 # Lock file for dependencies
+└── uv.lock                 # Lock file for uv dependencies
 ```
 
 ## Usage
@@ -203,11 +237,11 @@ BRAVE_API_KEY =        # Your Brave Search API key
 ## Technologies Used
 - **AI**
   - Gemini AI
-  - Agno Framework
+  - Agno Framework v2.0.11
 
 - **Web & Data**
   - Pydantic
-  - Jina
+  - Jina (Async Scraper)
   - Brave Search API
 
 - **Agent UI**
@@ -226,7 +260,38 @@ BRAVE_API_KEY =        # Your Brave Search API key
 Feel free to submit issues and pull requests.
 
 ## License
-Apache License - See LICENSE file
+
+**PolyForm Noncommercial License 1.0.0**
+
+Copyright © Omar Nahdi (omarnahdi.ai@gmail.com)
+
+This project is licensed under the PolyForm Noncommercial License 1.0.0.
+
+**Key License Terms:**
+
+✅ **FREE for Individuals**: This software is completely free for individuals to use for personal, non-commercial purposes including:
+- Personal study and learning
+- Hobby projects
+- Research and experimentation
+- Private entertainment
+- Amateur pursuits
+
+❌ **Commercial License Required**: Any use by organizations of any kind requires a separate commercial license. This includes:
+- Corporations and businesses
+- Non-profit organizations
+- Educational institutions
+- Government agencies
+- Startups and partnerships
+- Any organizational or commercial use
+
+**Commercial Licensing:**
+For commercial licensing inquiries, please contact: **omarnahdi.ai@gmail.com**
+
+For full license terms, see the [LICENSE](LICENSE) file.
+
+---
+
+**Important**: This license explicitly prohibits any commercial entity from using this project/software without obtaining a commercial license. Individual users may use this project freely for personal and non-commercial purposes only.
 
 ## Deprecated
 
