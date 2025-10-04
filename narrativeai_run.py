@@ -26,4 +26,4 @@ app.add_middleware(
 
 if __name__ == "__main__":
     # Important: Pass the app object directly, not a string
-    agno_os.serve(app="narrativeai_run:app", reload=True)
+    agno_os.serve(app="narrativeai_run:app", reload=True,host="0.0.0.0")
