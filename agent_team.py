@@ -34,9 +34,20 @@ load_dotenv()
 
 
 USE_NEONDB = os.getenv("USE_NEONDB")
-if USE_NEONDB:
+USE_SUPABASE = os.getenv('USE_SUPABASE')
+
+if USE_NEONDB == "True":
     NEONDB_URL = os.getenv("NEON_DB")
     db = PostgresDb(db_url=NEONDB_URL)
+elif USE_SUPABASE == "True":
+    SUPABASE_PROJECT = os.getenv("SUPABASE_PROJECT")
+    SUPABASE_PASSWORD = os.getenv("SUPABASE_PASSWORD")
+
+    SUPABASE_DB_URL = (
+    f"postgresql://postgres:{SUPABASE_PASSWORD}@db.{SUPABASE_PROJECT}:5432/postgres"
+    )
+# Setup the Supabase database
+    db = PostgresDb(db_url=SUPABASE_DB_URL)
 else: 
     db = SqliteDb(db_file='team_db/team_db.db')
 
