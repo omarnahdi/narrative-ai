@@ -2,12 +2,12 @@ import asyncio
 import json
 from agno.models.google import Gemini
 from agno.agent import Agent
-from dotenv import load_dotenv
 from instructions import post_gen_instructions, team_instructions, prompt_tuner_goal, prompt_tuner_instructions, team_success_criteria, research_agent_instructions
 # from agno.tools.bravesearch import BraveSearchTools
 from fix_brave_tool import BraveSearchTools
 
 from agno.db.sqlite import SqliteDb
+from agno.db.postgres import PostgresDb
 from agno.memory import MemoryManager
 import warnings
 # from agno.tools.jina import JinaReaderTools
@@ -15,7 +15,7 @@ from JinaToolAsync import JinaReaderTools
 from structured_models import PromptTunerResponse, ResearchFindings
 from google.genai import types
 from agno.team import Team
-
+from dotenv import load_dotenv
 safety_settings = [
         types.SafetySetting(category=types.HarmCategory.HARM_CATEGORY_HARASSMENT,
                             threshold=types.HarmBlockThreshold.BLOCK_NONE),
@@ -29,14 +29,19 @@ safety_settings = [
                             threshold=types.HarmBlockThreshold.BLOCK_NONE),
     ]
 warnings.filterwarnings("ignore", category=ResourceWarning)
+import os
 load_dotenv()
 
 
-db = SqliteDb(db_file='team_db/team_db.db')
+USE_NEONDB = os.getenv("USE_NEONDB")
+if USE_NEONDB:
+    NEONDB_URL = os.getenv("NEON_DB")
+    db = PostgresDb(db_url=NEONDB_URL)
+else: 
+    db = SqliteDb(db_file='team_db/team_db.db')
 
 memory_manager = MemoryManager(
         db=db,
-
         model=Gemini(id="gemini-2.0-flash"),
         debug_mode=True
     )
@@ -120,12 +125,12 @@ PostGenTeam = Team(
         id="Narrative_AI_Team",
     )
 
-if __name__=="__main__":
-    prompt = """
-    Today I have a great and superb post idea.
-    ideas: Best CLI tools for vibe coders!
-    context: Vibe coders are growing and learning how to use chatgpt, gemini and claude but their UI makes slow progress and Windsurf
-    /Cursor are increasing their prices and restrictions day by day so recommend best CLI tools for AI Vibe Coding. Keep it cool and straight forward,
-    Grab the attentions of Vibe coders Quickly no confusion!
-    """
+# if __name__=="__main__":
+#     prompt = """
+#     Today I have a great and superb post idea.
+#     ideas: Best CLI tools for vibe coders!
+#     context: Vibe coders are growing and learning how to use chatgpt, gemini and claude but their UI makes slow progress and Windsurf
+#     /Cursor are increasing their prices and restrictions day by day so recommend best CLI tools for AI Vibe Coding. Keep it cool and straight forward,
+#     Grab the attentions of Vibe coders Quickly no confusion!
+#     """
     
