@@ -18,7 +18,7 @@ app.add_middleware(
         "https://os.agno.com",
         "http://localhost:3000",
         "http://localhost:7777",
-        "https://narrative-ai-ui.vercel.app",
+        "https://skinly-ashen.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
