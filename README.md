@@ -12,7 +12,7 @@
 - Set USE_SUPABASE=True in .env to use Supabase
 - Defaults to local storage if USE_SUPABASE is not set.
 
-> **Note**:Checkout `CHANGELOG.md` for more info on all the recent updates added to the project.
+> **Note**: Checkout `CHANGELOG.md` for more info on all the recent updates added to the project.
 
 ## Overview
 An intelligent LinkedIn post generation system powered by AI agents, built to create engaging, research-backed professional content with a beautiful Agent UI interface.
