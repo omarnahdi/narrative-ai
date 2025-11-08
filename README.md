@@ -19,7 +19,7 @@ An intelligent LinkedIn post generation system powered by AI agents, built to cr
 
 ## Table of Contents
 - [Narrative AI: LinkedIn Post Generator with AI Agents 🤖](#narrative-ai-linkedin-post-generator-with-ai-agents-)
-  - [What's New in v0.9.0 🎉](#whats-new-in-v090-)
+  - [What's New in v0.9.2 🎉](#whats-new-in-v090-)
   - [Overview](#overview)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
