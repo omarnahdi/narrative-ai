@@ -10,4 +10,5 @@ jira>=3.10.5
 fastapi>=0.116.1
 uvicorn>=0.35.0
 psycopg2-binary>=2.9.11
+mangum==0.19.0
 git+https://github.com/omarnahdi/brave-api-fix.git

@@ -1,7 +1,7 @@
 from agno.os import AgentOS
 from agent_team import PostGenTeam
 from fastapi.middleware.cors import CORSMiddleware
-
+from mangum import Mangum
 # Create AgentOS with teams
 agno_os = AgentOS(
     teams=[PostGenTeam],
@@ -10,7 +10,7 @@ agno_os = AgentOS(
 
 # Get the app and add CORS before serve() is called
 app = agno_os.get_app()
-
+handler = Mangum(app)
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
