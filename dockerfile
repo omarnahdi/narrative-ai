@@ -2,6 +2,8 @@
 # This image is guaranteed to be supported and includes the Lambda Runtime Interface Client.
 FROM public.ecr.aws/lambda/python:3.11
 
+RUN dnf install -y git
+
 # Set the working directory for our application.
 WORKDIR /var/task
 
