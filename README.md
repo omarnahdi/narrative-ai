@@ -292,3 +292,5 @@ streamlit run post_gen_app.py
 ```
 
 However, we strongly recommend migrating to the Agent UI for the best experience.
+
+Portfolio: https://omarnahdi.dev
