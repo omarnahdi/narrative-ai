@@ -221,6 +221,8 @@ Key configuration options in `.env`:
 GOOGLE_API_KEY =       # Your Gemini API key
 BRAVE_API_KEY =        # Your Brave Search API key
 ```
+Project page: https://omarnahdi.dev/work/narrative-ai
+Portfolio: https://omarnahdi.dev
 
 ## Technologies Used
 - **AI**
@@ -292,5 +294,3 @@ streamlit run post_gen_app.py
 ```
 
 However, we strongly recommend migrating to the Agent UI for the best experience.
-
-Portfolio: https://omarnahdi.dev
