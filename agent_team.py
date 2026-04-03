@@ -35,6 +35,16 @@ load_dotenv()
 
 USE_NEONDB = os.getenv("USE_NEONDB")
 USE_SUPABASE = os.getenv('USE_SUPABASE')
+USE_TAVILY = os.getenv('USE_TAVILY')
+
+# Conditionally load TavilyTools as a drop-in replacement for BraveSearchTools
+_tavily_available = False
+if USE_TAVILY == "True":
+    try:
+        from agno.tools.tavily import TavilyTools
+        _tavily_available = True
+    except ImportError:
+        pass
 
 if USE_NEONDB == "True":
     NEONDB_URL = os.getenv("NEON_DB")
@@ -87,7 +97,7 @@ researcher_agent = Agent(
         # goal=goal,
         tools=[
             JinaReaderTools(include_tools=['robust_read_urls_async'],cache_results=True), # Can use any one of the scrapin, by default uses Jina Reader API
-            BraveSearchTools(fixed_max_results=10,cache_results=True),
+            TavilyTools(max_results=10) if _tavily_available else BraveSearchTools(fixed_max_results=10,cache_results=True),
         ],
         add_history_to_context=True,
         cache_session=True,
