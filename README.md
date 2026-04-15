@@ -28,6 +28,7 @@ An intelligent LinkedIn post generation system powered by AI agents, built to cr
   - [Project Structure](#project-structure)
   - [Usage](#usage)
   - [Configuration](#configuration)
+  - [Déploiement sur Azure](#déploiement-sur-azure)
   - [Technologies Used](#technologies-used)
   - [Contributing](#contributing)
   - [License](#license)
@@ -223,6 +224,18 @@ BRAVE_API_KEY =        # Your Brave Search API key
 ```
 Project page: https://omarnahdi.dev/work/narrative-ai
 Portfolio: https://omarnahdi.dev
+
+## Déploiement sur Azure
+
+Vous souhaitez déployer **narrative-ai** sur le cloud Azure ? Un guide complet est disponible pour vous accompagner pas-à-pas.
+
+👉 **[Voir le guide de déploiement Azure (DEPLOY_AZURE.md)](DEPLOY_AZURE.md)**
+
+Le guide couvre :
+- Déploiement sur **Azure Container Apps** avec Azure Developer CLI (`azd`)
+- Pipeline **CI/CD automatique** avec GitHub Actions (déploiement à chaque push sur `main`)
+- Configuration des secrets et des variables d'environnement
+- Instructions en français, adaptées aux débutants
 
 ## Technologies Used
 - **AI**

@@ -1,0 +1,110 @@
+# ============================================================
+# .github/workflows/azure-deploy.yml
+# Workflow GitHub Actions — Déploiement automatique sur Azure Container Apps
+#
+# Ce workflow se déclenche :
+#   - Automatiquement à chaque push sur la branche 'main'
+#   - Manuellement via l'interface GitHub (workflow_dispatch)
+#
+# Secrets GitHub requis (à configurer dans Settings > Secrets and variables > Actions) :
+#   AZURE_CREDENTIALS        — JSON de l'identité de service Azure (voir DEPLOY_AZURE.md)
+#   AZURE_SUBSCRIPTION_ID    — Identifiant de votre abonnement Azure
+#   AZURE_RESOURCE_GROUP     — Nom du groupe de ressources Azure
+#   AZURE_CONTAINER_REGISTRY — Nom du registre ACR (ex: acrnarrativeaidev)
+#   GOOGLE_API_KEY           — Clé API Google Gemini
+#   BRAVE_API_KEY            — Clé API Brave Search
+# ============================================================
+name: Deploy to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  # Nom de l'image Docker dans le registre
+  IMAGE_NAME: narrative-ai
+  # Port de l'application
+  APP_PORT: 7777
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      # ------------------------------------------------------------------
+      # 1. Récupérer le code source
+      # ------------------------------------------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------------------
+      # 2. Se connecter à Azure avec les credentials du service principal
+      # ------------------------------------------------------------------
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # ------------------------------------------------------------------
+      # 3. Se connecter au registre de conteneurs Azure (ACR)
+      # ------------------------------------------------------------------
+      - name: Login to Azure Container Registry
+        run: |
+          az acr login --name ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+
+      # ------------------------------------------------------------------
+      # 4. Construire et pousser l'image Docker vers ACR
+      # ------------------------------------------------------------------
+      - name: Build and push Docker image
+        run: |
+          ACR_LOGIN_SERVER="${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io"
+          IMAGE_TAG="${ACR_LOGIN_SERVER}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          IMAGE_LATEST="${ACR_LOGIN_SERVER}/${{ env.IMAGE_NAME }}:latest"
+
+          # Construire l'image avec le Dockerfile adapté pour Azure
+          docker build -f Dockerfile.azure -t "${IMAGE_TAG}" -t "${IMAGE_LATEST}" .
+
+          # Pousser les deux tags vers ACR
+          docker push "${IMAGE_TAG}"
+          docker push "${IMAGE_LATEST}"
+
+          # Sauvegarder le tag complet pour l'étape suivante
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+
+      # ------------------------------------------------------------------
+      # 5. Déployer l'image sur Azure Container Apps
+      # ------------------------------------------------------------------
+      - name: Deploy to Azure Container Apps
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          containerAppName: app-narrativeai-dev
+          imageToDeploy: ${{ env.IMAGE_TAG }}
+          environmentVariables: >
+            GOOGLE_API_KEY=secretref:google-api-key
+            BRAVE_API_KEY=secretref:brave-api-key
+
+      # ------------------------------------------------------------------
+      # 6. Afficher l'URL de l'application déployée
+      # ------------------------------------------------------------------
+      - name: Get app URL
+        run: |
+          APP_URL=$(az containerapp show \
+            --name app-narrativeai-dev \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --query "properties.configuration.ingress.fqdn" \
+            --output tsv)
+          echo "✅ Application déployée : https://${APP_URL}"
+          echo "APP_URL=https://${APP_URL}" >> $GITHUB_ENV
+
+      # ------------------------------------------------------------------
+      # 7. Se déconnecter d'Azure (bonne pratique de sécurité)
+      # ------------------------------------------------------------------
+      - name: Azure logout
+        if: always()
+        run: az logout
