@@ -1,0 +1,27 @@
+name: Build & Push image to ACR
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+env:
+  IMAGE_NAME: narrative-ai
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to ACR
+        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+
+      - name: Build and push
+        run: |
+          IMAGE_LATEST="${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest"
+          IMAGE_SHA="${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+
+          docker build -f Dockerfile.azure -t "$IMAGE_LATEST" -t "$IMAGE_SHA" .
+          docker push "$IMAGE_LATEST"
+          docker push "$IMAGE_SHA"
