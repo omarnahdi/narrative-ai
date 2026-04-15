@@ -1,0 +1,16 @@
+# azure.yaml — Configuration Azure Developer CLI (azd)
+# Documentation : https://learn.microsoft.com/azure/developer/azure-developer-cli/azd-schema
+name: narrative-ai
+metadata:
+  template: narrative-ai@0.0.1
+
+services:
+  narrative-ai:
+    # Type d'hébergement : Azure Container Apps
+    host: containerapp
+    # Langage principal du projet
+    language: python
+    # Chemin vers le Dockerfile adapté pour Azure
+    docker:
+      path: Dockerfile.azure
+      context: .

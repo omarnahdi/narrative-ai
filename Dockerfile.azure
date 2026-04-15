@@ -1,0 +1,49 @@
+# --------------------------------------------------------------------------------
+# Dockerfile.azure — Adapté pour Azure Container Apps
+# Ce fichier remplace l'entrypoint AWS Lambda (awslambdaric) par un serveur
+# web standard (uvicorn/FastAPI) tournant sur le port 7777.
+# Le Dockerfile original (AWS Lambda) est conservé dans le fichier 'dockerfile'.
+# --------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------
+# STAGE 1: Builder (Compilation des dépendances)
+# --------------------------------------------------------------------------------
+FROM python:3.11-slim AS builder
+
+# Installer les outils de compilation nécessaires.
+# - git : requis pour la dépendance 'git+' dans requirements.txt
+RUN apt-get update && apt-get install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+COPY requirements.txt .
+
+# Installer les dépendances dans un dossier dédié (sans awslambdaric).
+RUN pip install --target /build/dependencies --no-cache-dir \
+    -r requirements.txt
+
+# --------------------------------------------------------------------------------
+# STAGE 2: Image finale légère
+# --------------------------------------------------------------------------------
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copier les dépendances compilées depuis le stage builder
+COPY --from=builder /build/dependencies /app
+
+# Copier les fichiers de l'application
+COPY narrativeai_run.py .
+COPY instructions.py .
+COPY fix_brave_tool.py .
+COPY JinaToolAsync.py .
+COPY agent_team.py .
+COPY structured_models.py .
+
+# Exposer le port du playground server
+EXPOSE 7777
+
+# Lancer l'application avec uvicorn sur le port 7777
+CMD ["python", "-m", "uvicorn", "narrativeai_run:app", "--host", "0.0.0.0", "--port", "7777"]
